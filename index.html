@@ -1,484 +1,490 @@
 <!DOCTYPE html>
-<html lang="en" class="scroll-smooth">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Tatay Games — Official Studio & Games</title>
-  <!-- Load Google Font: Inter -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
-  <!-- Load Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-          },
-          colors: {
-            studioBg: '#EAE9E7',
-            studioSurface: '#F7F6F4',
-            studioBorder: '#D6D3CD',
-            studioInk: '#1C1917',
-            studioMuted: '#57534E',
-          }
-        }
+  <title>Tatay Games — Official Studio &amp; Games</title>
+  <style>
+    :root {
+      --bg: #EAE9E7;
+      --surface: #F7F6F4;
+      --surface-hover: #FFFFFF;
+      --border: #D6D3CD;
+      --text-main: #1C1917;
+      --text-muted: #57534E;
+      --accent: #D97706;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+    }
+
+    /* Full-Screen Hero Section (Matches Original Centered Logo Position & Size) */
+    .hero {
+      min-height: 92vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 36px 20px;
+      text-align: center;
+    }
+
+    .hero-logo {
+      max-width: 100%;
+      max-height: 62vh;
+      height: auto;
+      display: block;
+    }
+
+    /* Official Store Banner Badges Under Logo */
+    .hero-badges {
+      margin-top: 28px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+    }
+
+    .badge-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #0F0F0F;
+      color: #FFFFFF;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 12px;
+      border: 1px solid #2E2E2E;
+      min-width: 185px;
+      transition: transform 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .badge-link:hover {
+      background: #242424;
+      transform: translateY(-2px);
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.15);
+    }
+
+    .badge-link svg {
+      width: 26px;
+      height: 26px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    .badge-text {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      text-align: left;
+      line-height: 1.15;
+    }
+
+    .badge-small {
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: #D4D4D8;
+    }
+
+    .badge-large {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+    }
+
+    /* Main Content Wrapper */
+    .container {
+      width: 100%;
+      max-width: 1020px;
+      margin: 0 auto;
+      padding: 12px 20px 64px;
+    }
+
+    /* Updatable Highlight Banner Section */
+    .highlight-section {
+      margin-bottom: 56px;
+    }
+
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section-header h2 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .pill {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      background: rgba(28, 25, 23, 0.07);
+      padding: 5px 12px;
+      border-radius: 999px;
+    }
+
+    .highlight-frame {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      overflow: hidden;
+      box-shadow: 0 12px 28px rgba(28, 25, 23, 0.06);
+    }
+
+    .highlight-frame img {
+      width: 100%;
+      max-height: 460px;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Games Showcase Grid */
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 26px;
+    }
+
+    @media (max-width: 760px) {
+      .games-grid {
+        grid-template-columns: 1fr;
       }
-    };
-  </script>
+      .hero {
+        min-height: 84vh;
+      }
+      .hero-logo {
+        max-height: 50vh;
+      }
+    }
+
+    .game-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+    }
+
+    .game-card:hover {
+      background: var(--surface-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 14px 30px rgba(28, 25, 23, 0.08);
+    }
+
+    .video-wrap {
+      position: relative;
+      width: 100%;
+      padding-top: 56.25%;
+      background: #141414;
+    }
+
+    .video-wrap iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+
+    .card-body {
+      padding: 22px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      justify-content: space-between;
+    }
+
+    .game-title-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+
+    .game-title-row h3 {
+      font-size: 1.22rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .genre-tag {
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .game-desc {
+      color: var(--text-muted);
+      font-size: 0.93rem;
+      margin-bottom: 20px;
+    }
+
+    .store-buttons {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .store-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 11px 14px;
+      border-radius: 12px;
+      font-size: 0.86rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background-color 0.15s ease;
+    }
+
+    .store-btn svg {
+      width: 17px;
+      height: 17px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    .btn-android {
+      background: #1C1917;
+      color: #FFFFFF;
+    }
+
+    .btn-android:hover {
+      background: #332E2A;
+    }
+
+    .btn-ios {
+      background: #FFFFFF;
+      color: #1C1917;
+      border: 1px solid var(--border);
+    }
+
+    .btn-ios:hover {
+      background: #EFECE6;
+    }
+
+    /* Footer */
+    footer {
+      width: 100%;
+      max-width: 1020px;
+      margin: 0 auto;
+      padding: 24px 20px 40px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .footer-links {
+      display: flex;
+      gap: 20px;
+    }
+
+    .footer-links a {
+      color: var(--text-main);
+      text-decoration: none;
+      font-weight: 500;
+    }
+
+    .footer-links a:hover {
+      text-decoration: underline;
+    }
+  </style>
 </head>
-<body class="bg-studioBg text-studioInk font-sans antialiased min-h-screen flex flex-col items-center selection:bg-amber-500/20">
+<body>
 
-  <!-- 1. HERO SECTION (Above the fold, centered vertically & horizontally, min-height 92vh) -->
-  <header class="w-full min-h-[92vh] flex flex-col items-center justify-between px-5 pt-8 pb-6 text-center">
-    <!-- Top Spacer for Optical Vertical Centering -->
-    <div class="h-2" aria-hidden="true"></div>
+  <!-- Hero Section: Same Centered Logo + Store Badges Underneath -->
+  <header class="hero">
+    <img class="hero-logo" src="tataygames.jpg" alt="Tatay Games" />
 
-    <!-- Center Logo + Official Store Badges -->
-    <div class="w-full max-w-3xl flex flex-col items-center justify-center my-auto">
-      <!-- Primary Studio Logo Image (Seamlessly blends into #EAE9E7) -->
-      <img
-        id="hero-logo-img"
-        src="tataygames.jpg"
-        alt="Tatay Games"
-        onerror="handleHeroLogoError(this)"
-        class="max-h-[68vh] max-w-full w-auto h-auto object-contain mx-auto select-none"
-      />
-
-      <!-- Clean Fallback Graphic for Preview when tataygames.jpg is not present locally -->
-      <div id="hero-logo-fallback" class="hidden flex-col items-center justify-center py-8 sm:py-12 px-6 select-none">
-        <div class="w-28 h-28 sm:w-36 sm:h-36 rounded-3xl bg-gradient-to-br from-red-600 via-amber-600 to-stone-900 flex items-center justify-center shadow-2xl shadow-stone-900/20 mb-6 border-4 border-white/60">
-          <svg class="w-16 h-16 sm:w-20 sm:h-20 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <rect x="2" y="6" width="20" height="12" rx="4" />
-            <path d="M6 12h4" />
-            <path d="M8 10v4" />
-            <circle cx="15" cy="11" r="1.2" fill="currentColor" />
-            <circle cx="18" cy="13" r="1.2" fill="currentColor" />
-          </svg>
+    <div class="hero-badges">
+      <a class="badge-link" href="https://play.google.com/store/apps/details?id=com.tatay.manokNaPula" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M3.61 1.814L13.793 12 3.61 22.186a1.98 1.98 0 0 1-.485-1.31V3.124c0-.51.187-.97.485-1.31zm10.89 10.893l2.828 2.828-11.55 6.625 8.722-9.453zm3.69-2.118l2.587 1.484c.738.423.738 1.43 0 1.854l-2.587 1.484-3.112-2.411 3.112-2.411zM5.778 1.84l11.55 6.625-2.828 2.828L5.778 1.84z"/></svg>
+        <div class="badge-text">
+          <span class="badge-small">Get it on</span>
+          <span class="badge-large">Google Play</span>
         </div>
-        <h1 class="text-4xl sm:text-6xl font-black tracking-tight text-studioInk leading-none">
-          TATAY <span class="text-red-600">GAMES</span>
-        </h1>
-        <p class="text-xs sm:text-sm font-bold uppercase tracking-[0.28em] text-studioMuted mt-3">
-          Official Mobile Game Studio
-        </p>
-      </div>
+      </a>
 
-      <!-- Official-Style Google Play & App Store Banner Badges Side-by-Side -->
-      <div class="mt-6 sm:mt-8 flex flex-wrap items-center justify-center gap-3.5 sm:gap-4">
-        <!-- GET IT ON Google Play Official Badge -->
-        <a
-          href="https://play.google.com/store/search?q=Tatay%20Games&c=apps"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Get Tatay Games on Google Play"
-          class="inline-flex items-center gap-3 bg-black hover:bg-neutral-800 active:scale-[0.98] text-white px-5 py-2.5 rounded-xl border border-neutral-700 shadow-md transition duration-150 min-w-[172px]"
-        >
-          <svg class="w-7 h-7 shrink-0" viewBox="0 0 24 24" aria-hidden="true">
-            <path fill="#4285F4" d="M3.61 1.814L13.793 12 3.61 22.186a1.98 1.98 0 0 1-.485-1.31V3.124c0-.51.187-.97.485-1.31z"/>
-            <path fill="#34A853" d="M13.793 12l3.69-3.69L5.778 1.84c-.79-.453-1.66-.42-2.168-.026L13.793 12z"/>
-            <path fill="#FBBC05" d="M17.483 15.69L20.07 14.2c.738-.424.738-1.43 0-1.854l-2.587-1.484L13.793 12l3.69 3.69z"/>
-            <path fill="#EA4335" d="M3.61 22.186c.508.394 1.378.427 2.168-.026l11.705-6.47-3.69-3.69L3.61 22.186z"/>
-          </svg>
-          <div class="text-left leading-tight">
-            <span class="block text-[10px] font-medium uppercase tracking-wider text-neutral-300">GET IT ON</span>
-            <span class="block text-base sm:text-[17px] font-semibold tracking-tight text-white">Google Play</span>
-          </div>
-        </a>
-
-        <!-- Download on the App Store Official Badge -->
-        <a
-          href="https://apps.apple.com/ph/search?term=Tatay+Games"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Download Tatay Games on the App Store"
-          class="inline-flex items-center gap-3 bg-black hover:bg-neutral-800 active:scale-[0.98] text-white px-5 py-2.5 rounded-xl border border-neutral-700 shadow-md transition duration-150 min-w-[172px]"
-        >
-          <svg class="w-7 h-7 fill-current shrink-0 text-white" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.96 6.32c.67-.81 1.12-1.94 1-3.07-.96.04-2.13.64-2.82 1.45-.61.7-.115 1.85-1.01 2.96 1.07.08 2.16-.53 2.83-1.34z"/>
-          </svg>
-          <div class="text-left leading-tight">
-            <span class="block text-[10px] font-medium tracking-wide text-neutral-300">Download on the</span>
-            <span class="block text-base sm:text-[17px] font-semibold tracking-tight text-white">App Store</span>
-          </div>
-        </a>
-      </div>
+      <a class="badge-link" href="https://apps.apple.com/nz/developer/tatay-games/id964822079" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.96 6.32c.67-.81 1.12-1.94 1-3.07-.96.04-2.13.64-2.82 1.45-.61.7-.115 1.85-1.01 2.96 1.07.08 2.16-.53 2.83-1.34z"/></svg>
+        <div class="badge-text">
+          <span class="badge-small">Download on the</span>
+          <span class="badge-large">App Store</span>
+        </div>
+      </a>
     </div>
-
-    <!-- Subtle Scroll Hint at Bottom of Hero -->
-    <a
-      href="#highlights"
-      class="mt-8 inline-flex items-center gap-1.5 text-xs sm:text-sm font-medium text-studioMuted hover:text-studioInk transition-colors animate-bounce"
-    >
-      <span>Scroll down to explore games ↓</span>
-    </a>
   </header>
 
-  <!-- Main Content Wrapper (max-width 960px) -->
-  <main class="w-full max-w-[960px] px-5 sm:px-8 pb-20 space-y-14 sm:space-y-16">
+  <main class="container">
 
-    <!-- 2. HIGHLIGHT BANNER SECTION (Updatable highlight.jpg showcase card) -->
-    <section id="highlights" aria-label="Featured Highlight Banner" class="pt-4">
-      <div class="w-full rounded-3xl overflow-hidden bg-studioSurface border border-studioBorder shadow-lg shadow-stone-900/[0.06]">
-        <!-- Updatable Banner Image -->
-        <img
-          id="highlight-banner-img"
-          src="highlight.jpg"
-          alt="Tatay Games Featured Highlight"
-          onerror="handleHighlightBannerError(this)"
-          class="w-full h-auto max-h-[460px] object-cover block"
-        />
-
-        <!-- Clean Preview Fallback Graphic when highlight.jpg is not uploaded yet -->
-        <div
-          id="highlight-banner-fallback"
-          class="hidden flex-col items-center justify-center text-center px-6 py-14 sm:py-20 bg-gradient-to-br from-stone-800 via-stone-900 to-neutral-950 text-white"
-        >
-          <span class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-300 text-xs font-semibold uppercase tracking-wider mb-4">
-            Studio Spotlight
-          </span>
-          <h2 class="text-xl sm:text-3xl font-extrabold tracking-tight text-white max-w-xl">
-            Featured Highlight Banner
-          </h2>
-          <p class="text-stone-300 text-sm sm:text-base mt-2 max-w-md">
-            Upload <code class="px-2 py-0.5 rounded bg-white/10 text-amber-300 font-mono text-xs sm:text-sm">highlight.jpg</code> anytime to update this featured banner automatically.
-          </p>
-        </div>
+    <!-- Updatable Highlight Image Banner (Upload/Replace highlight.jpg on GitHub Anytime) -->
+    <section class="highlight-section" id="highlight-banner">
+      <div class="section-header">
+        <h2>Featured Highlight</h2>
+        <span class="pill">What's New</span>
+      </div>
+      <div class="highlight-frame">
+        <img src="highlight.jpg" alt="Tatay Games Featured Highlight" onerror="document.getElementById('highlight-banner').style.display='none'" />
       </div>
     </section>
 
-    <!-- 3. GAMES SHOWCASE SECTION (Exact Order: Manok Na Pula, Train to Gensan, Duterte Fighting Crime, Manananggal - 2 Players) -->
-    <section id="games" aria-label="Games Showcase" class="space-y-8 sm:space-y-10">
-      <div class="flex items-center justify-between pb-3.5 border-b border-studioBorder">
-        <div>
-          <h2 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-studioInk">Our Games</h2>
-          <p class="text-sm text-studioMuted mt-0.5">Watch gameplay highlights and download on Android &amp; iOS</p>
-        </div>
-        <span class="text-xs font-semibold text-studioMuted bg-stone-900/[0.06] px-3.5 py-1.5 rounded-full">
-          4 Titles
-        </span>
+    <!-- Games Showcase with Embedded YouTube Videos -->
+    <section>
+      <div class="section-header">
+        <h2>TATAY GAMES YOU LOVE!</h2>
+        <span class="pill">iOS &amp; Android</span>
       </div>
 
-      <!-- GAME 1: Manok Na Pula (Dark Theater Frame for Vertical/Shorts Video) -->
-      <article class="bg-studioSurface border border-studioBorder rounded-3xl overflow-hidden shadow-md shadow-stone-900/[0.05]">
-        <!-- Dark Theater Frame so vertical/Shorts YouTube video looks crisp -->
-        <div class="w-full bg-neutral-950 py-6 sm:py-8 px-4 flex justify-center items-center border-b border-studioBorder">
-          <div class="w-full max-w-[330px] sm:max-w-[360px] aspect-[9/16] rounded-2xl overflow-hidden shadow-2xl ring-1 ring-white/15 bg-black">
-            <iframe
-              class="w-full h-full"
-              src="https://www.youtube.com/embed/YQhXYCR2CXk"
-              title="Manok Na Pula Gameplay Highlight"
-              loading="lazy"
-              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-              referrerpolicy="strict-origin-when-cross-origin"
-              allowfullscreen
-            ></iframe>
-          </div>
-        </div>
+      <div class="games-grid">
 
-        <!-- Game Details & Store Buttons -->
-        <div class="p-6 sm:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-          <div class="max-w-xl">
-            <div class="flex items-center gap-3 mb-2">
-              <span class="w-10 h-10 rounded-xl bg-gradient-to-br from-red-600 to-red-900 flex items-center justify-center text-xl shadow-sm" aria-hidden="true">🐓</span>
-              <div>
-                <h3 class="text-xl sm:text-2xl font-bold text-studioInk leading-tight">Manok Na Pula</h3>
-                <span class="text-xs font-semibold uppercase tracking-wider text-amber-700">Multiplayer Rooster Action</span>
+        <!-- 1. Manok Na Pula -->
+        <article class="game-card">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/YQhXYCR2CXk" title="Manok Na Pula Gameplay" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="card-body">
+            <div>
+              <div class="game-title-row">
+                <h3>Manok Na Pula</h3>
+                <span class="genre-tag">Multiplayer Action</span>
               </div>
+              <p class="game-desc">Train, power up, and battle legendary roosters in fast-paced multiplayer arena fights.</p>
             </div>
-            <p class="text-studioMuted text-sm sm:text-base leading-relaxed mt-2">
-              Train, evolve, and battle legendary roosters in intense multiplayer arena showdowns. Customize your fighter and climb the leaderboard!
-            </p>
-          </div>
-
-          <!-- Official Store Banner Buttons -->
-          <div class="flex flex-wrap sm:flex-nowrap items-center gap-3 shrink-0">
-            <a
-              href="https://play.google.com/store/search?q=Manok%20Na%20Pula&c=apps"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-2.5 bg-black hover:bg-neutral-800 active:scale-[0.98] text-white px-4 py-2.5 rounded-xl border border-neutral-700 shadow-sm transition min-w-[158px]"
-            >
-              <svg class="w-6 h-6 shrink-0" viewBox="0 0 24 24" aria-hidden="true">
-                <path fill="#4285F4" d="M3.61 1.814L13.793 12 3.61 22.186a1.98 1.98 0 0 1-.485-1.31V3.124c0-.51.187-.97.485-1.31z"/>
-                <path fill="#34A853" d="M13.793 12l3.69-3.69L5.778 1.84c-.79-.453-1.66-.42-2.168-.026L13.793 12z"/>
-                <path fill="#FBBC05" d="M17.483 15.69L20.07 14.2c.738-.424.738-1.43 0-1.854l-2.587-1.484L13.793 12l3.69 3.69z"/>
-                <path fill="#EA4335" d="M3.61 22.186c.508.394 1.378.427 2.168-.026l11.705-6.47-3.69-3.69L3.61 22.186z"/>
-              </svg>
-              <div class="text-left leading-tight">
-                <span class="block text-[9px] font-medium uppercase tracking-wider text-neutral-300">GET IT ON</span>
-                <span class="block text-sm font-semibold text-white">Google Play</span>
-              </div>
-            </a>
-
-            <a
-              href="https://apps.apple.com/ph/search?term=Manok+Na+Pula"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-2.5 bg-black hover:bg-neutral-800 active:scale-[0.98] text-white px-4 py-2.5 rounded-xl border border-neutral-700 shadow-sm transition min-w-[158px]"
-            >
-              <svg class="w-6 h-6 fill-current shrink-0 text-white" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.96 6.32c.67-.81 1.12-1.94 1-3.07-.96.04-2.13.64-2.82 1.45-.61.7-.115 1.85-1.01 2.96 1.07.08 2.16-.53 2.83-1.34z"/>
-              </svg>
-              <div class="text-left leading-tight">
-                <span class="block text-[9px] font-medium tracking-wide text-neutral-300">Download on the</span>
-                <span class="block text-sm font-semibold text-white">App Store</span>
-              </div>
-            </a>
-          </div>
-        </div>
-      </article>
-
-      <!-- GAME 2: Train to Gensan (Responsive 16:9 Frame) -->
-      <article class="bg-studioSurface border border-studioBorder rounded-3xl overflow-hidden shadow-md shadow-stone-900/[0.05]">
-        <div class="w-full aspect-video bg-black border-b border-studioBorder">
-          <iframe
-            class="w-full h-full"
-            src="https://www.youtube.com/embed/hv0FkXXVH58"
-            title="Train to Gensan Gameplay Highlight"
-            loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
-          ></iframe>
-        </div>
-
-        <div class="p-6 sm:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-          <div class="max-w-xl">
-            <div class="flex items-center gap-3 mb-2">
-              <span class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-amber-800 flex items-center justify-center text-xl shadow-sm" aria-hidden="true">🚆</span>
-              <div>
-                <h3 class="text-xl sm:text-2xl font-bold text-studioInk leading-tight">Train to Gensan</h3>
-                <span class="text-xs font-semibold uppercase tracking-wider text-amber-700">Zombie Survival Action</span>
-              </div>
+            <div class="store-buttons">
+              <a class="store-btn btn-android" href="https://play.google.com/store/apps/details?id=com.tatay.manokNaPula" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24"><path d="M3.61 1.814L13.793 12 3.61 22.186a1.98 1.98 0 0 1-.485-1.31V3.124c0-.51.187-.97.485-1.31zm10.89 10.893l2.828 2.828-11.55 6.625 8.722-9.453zm3.69-2.118l2.587 1.484c.738.423.738 1.43 0 1.854l-2.587 1.484-3.112-2.411 3.112-2.411zM5.778 1.84l11.55 6.625-2.828 2.828L5.778 1.84z"/></svg>
+                Google Play
+              </a>
+              <a class="store-btn btn-ios" href="https://apps.apple.com/nz/app/manok-na-pula-multiplayer/id1487454861" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.96 6.32c.67-.81 1.12-1.94 1-3.07-.96.04-2.13.64-2.82 1.45-.61.7-.115 1.85-1.01 2.96 1.07.08 2.16-.53 2.83-1.34z"/></svg>
+                App Store
+              </a>
             </div>
-            <p class="text-studioMuted text-sm sm:text-base leading-relaxed mt-2">
-              Fight through hordes of infected along the tracks and survive the high-speed journey all the way to General Santos.
-            </p>
           </div>
+        </article>
 
-          <div class="flex flex-wrap sm:flex-nowrap items-center gap-3 shrink-0">
-            <a
-              href="https://play.google.com/store/search?q=Train%20to%20Gensan&c=apps"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-2.5 bg-black hover:bg-neutral-800 active:scale-[0.98] text-white px-4 py-2.5 rounded-xl border border-neutral-700 shadow-sm transition min-w-[158px]"
-            >
-              <svg class="w-6 h-6 shrink-0" viewBox="0 0 24 24" aria-hidden="true">
-                <path fill="#4285F4" d="M3.61 1.814L13.793 12 3.61 22.186a1.98 1.98 0 0 1-.485-1.31V3.124c0-.51.187-.97.485-1.31z"/>
-                <path fill="#34A853" d="M13.793 12l3.69-3.69L5.778 1.84c-.79-.453-1.66-.42-2.168-.026L13.793 12z"/>
-                <path fill="#FBBC05" d="M17.483 15.69L20.07 14.2c.738-.424.738-1.43 0-1.854l-2.587-1.484L13.793 12l3.69 3.69z"/>
-                <path fill="#EA4335" d="M3.61 22.186c.508.394 1.378.427 2.168-.026l11.705-6.47-3.69-3.69L3.61 22.186z"/>
-              </svg>
-              <div class="text-left leading-tight">
-                <span class="block text-[9px] font-medium uppercase tracking-wider text-neutral-300">GET IT ON</span>
-                <span class="block text-sm font-semibold text-white">Google Play</span>
-              </div>
-            </a>
-
-            <a
-              href="https://apps.apple.com/ph/search?term=Train+to+Gensan"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-2.5 bg-black hover:bg-neutral-800 active:scale-[0.98] text-white px-4 py-2.5 rounded-xl border border-neutral-700 shadow-sm transition min-w-[158px]"
-            >
-              <svg class="w-6 h-6 fill-current shrink-0 text-white" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.96 6.32c.67-.81 1.12-1.94 1-3.07-.96.04-2.13.64-2.82 1.45-.61.7-.115 1.85-1.01 2.96 1.07.08 2.16-.53 2.83-1.34z"/>
-              </svg>
-              <div class="text-left leading-tight">
-                <span class="block text-[9px] font-medium tracking-wide text-neutral-300">Download on the</span>
-                <span class="block text-sm font-semibold text-white">App Store</span>
-              </div>
-            </a>
+        <!-- 2. Train to Gensan -->
+        <article class="game-card">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/hv0FkXXVH58" title="Train to Gensan Gameplay" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
           </div>
-        </div>
-      </article>
-
-      <!-- GAME 3: Duterte Fighting Crime (Responsive 16:9 Frame) -->
-      <article class="bg-studioSurface border border-studioBorder rounded-3xl overflow-hidden shadow-md shadow-stone-900/[0.05]">
-        <div class="w-full aspect-video bg-black border-b border-studioBorder">
-          <iframe
-            class="w-full h-full"
-            src="https://www.youtube.com/embed/CMhhDclbgfY"
-            title="Duterte Fighting Crime Gameplay Highlight"
-            loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
-          ></iframe>
-        </div>
-
-        <div class="p-6 sm:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-          <div class="max-w-xl">
-            <div class="flex items-center gap-3 mb-2">
-              <span class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-blue-950 flex items-center justify-center text-xl shadow-sm" aria-hidden="true">👊</span>
-              <div>
-                <h3 class="text-xl sm:text-2xl font-bold text-studioInk leading-tight">Duterte Fighting Crime</h3>
-                <span class="text-xs font-semibold uppercase tracking-wider text-amber-700">Arcade Action Shooter</span>
+          <div class="card-body">
+            <div>
+              <div class="game-title-row">
+                <h3>Train to Gensan</h3>
+                <span class="genre-tag">Zombie Survival</span>
               </div>
+              <p class="game-desc">Fight through infected tracks and survive the high-speed journey all the way to Gensan.</p>
             </div>
-            <p class="text-studioMuted text-sm sm:text-base leading-relaxed mt-2">
-              Clean up the streets against endless waves of criminals with heavy firepower, upgrades, and fast-paced arcade action.
-            </p>
-          </div>
-
-          <div class="flex flex-wrap sm:flex-nowrap items-center gap-3 shrink-0">
-            <a
-              href="https://play.google.com/store/search?q=Duterte%20Fighting%20Crime&c=apps"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-2.5 bg-black hover:bg-neutral-800 active:scale-[0.98] text-white px-4 py-2.5 rounded-xl border border-neutral-700 shadow-sm transition min-w-[158px]"
-            >
-              <svg class="w-6 h-6 shrink-0" viewBox="0 0 24 24" aria-hidden="true">
-                <path fill="#4285F4" d="M3.61 1.814L13.793 12 3.61 22.186a1.98 1.98 0 0 1-.485-1.31V3.124c0-.51.187-.97.485-1.31z"/>
-                <path fill="#34A853" d="M13.793 12l3.69-3.69L5.778 1.84c-.79-.453-1.66-.42-2.168-.026L13.793 12z"/>
-                <path fill="#FBBC05" d="M17.483 15.69L20.07 14.2c.738-.424.738-1.43 0-1.854l-2.587-1.484L13.793 12l3.69 3.69z"/>
-                <path fill="#EA4335" d="M3.61 22.186c.508.394 1.378.427 2.168-.026l11.705-6.47-3.69-3.69L3.61 22.186z"/>
-              </svg>
-              <div class="text-left leading-tight">
-                <span class="block text-[9px] font-medium uppercase tracking-wider text-neutral-300">GET IT ON</span>
-                <span class="block text-sm font-semibold text-white">Google Play</span>
-              </div>
-            </a>
-
-            <a
-              href="https://apps.apple.com/ph/search?term=Duterte+Fighting+Crime"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-2.5 bg-black hover:bg-neutral-800 active:scale-[0.98] text-white px-4 py-2.5 rounded-xl border border-neutral-700 shadow-sm transition min-w-[158px]"
-            >
-              <svg class="w-6 h-6 fill-current shrink-0 text-white" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.96 6.32c.67-.81 1.12-1.94 1-3.07-.96.04-2.13.64-2.82 1.45-.61.7-.115 1.85-1.01 2.96 1.07.08 2.16-.53 2.83-1.34z"/>
-              </svg>
-              <div class="text-left leading-tight">
-                <span class="block text-[9px] font-medium tracking-wide text-neutral-300">Download on the</span>
-                <span class="block text-sm font-semibold text-white">App Store</span>
-              </div>
-            </a>
-          </div>
-        </div>
-      </article>
-
-      <!-- GAME 4: Manananggal - 2 Players (Responsive 16:9 Frame) -->
-      <article class="bg-studioSurface border border-studioBorder rounded-3xl overflow-hidden shadow-md shadow-stone-900/[0.05]">
-        <div class="w-full aspect-video bg-black border-b border-studioBorder">
-          <iframe
-            class="w-full h-full"
-            src="https://www.youtube.com/embed/pk8SSM2Pgig"
-            title="Manananggal - 2 Players Gameplay Highlight"
-            loading="lazy"
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-            referrerpolicy="strict-origin-when-cross-origin"
-            allowfullscreen
-          ></iframe>
-        </div>
-
-        <div class="p-6 sm:p-8 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
-          <div class="max-w-xl">
-            <div class="flex items-center gap-3 mb-2">
-              <span class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-600 to-purple-950 flex items-center justify-center text-xl shadow-sm" aria-hidden="true">🦇</span>
-              <div>
-                <h3 class="text-xl sm:text-2xl font-bold text-studioInk leading-tight">Manananggal - 2 Players</h3>
-                <span class="text-xs font-semibold uppercase tracking-wider text-amber-700">2-Player Folklore Action</span>
-              </div>
+            <div class="store-buttons">
+              <a class="store-btn btn-android" href="https://play.google.com/store/apps/details?id=com.tataygames.trainToGensan" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24"><path d="M3.61 1.814L13.793 12 3.61 22.186a1.98 1.98 0 0 1-.485-1.31V3.124c0-.51.187-.97.485-1.31zm10.89 10.893l2.828 2.828-11.55 6.625 8.722-9.453zm3.69-2.118l2.587 1.484c.738.423.738 1.43 0 1.854l-2.587 1.484-3.112-2.411 3.112-2.411zM5.778 1.84l11.55 6.625-2.828 2.828L5.778 1.84z"/></svg>
+                Google Play
+              </a>
+              <a class="store-btn btn-ios" href="https://apps.apple.com/nz/app/train-to-gensan/id1236987087" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.96 6.32c.67-.81 1.12-1.94 1-3.07-.96.04-2.13.64-2.82 1.45-.61.7-.115 1.85-1.01 2.96 1.07.08 2.16-.53 2.83-1.34z"/></svg>
+                App Store
+              </a>
             </div>
-            <p class="text-studioMuted text-sm sm:text-base leading-relaxed mt-2">
-              Challenge a friend head-to-head in an intense two-player battle inspired by classic Philippine folklore.
-            </p>
           </div>
+        </article>
 
-          <div class="flex flex-wrap sm:flex-nowrap items-center gap-3 shrink-0">
-            <a
-              href="https://play.google.com/store/search?q=Manananggal%202%20Players&c=apps"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-2.5 bg-black hover:bg-neutral-800 active:scale-[0.98] text-white px-4 py-2.5 rounded-xl border border-neutral-700 shadow-sm transition min-w-[158px]"
-            >
-              <svg class="w-6 h-6 shrink-0" viewBox="0 0 24 24" aria-hidden="true">
-                <path fill="#4285F4" d="M3.61 1.814L13.793 12 3.61 22.186a1.98 1.98 0 0 1-.485-1.31V3.124c0-.51.187-.97.485-1.31z"/>
-                <path fill="#34A853" d="M13.793 12l3.69-3.69L5.778 1.84c-.79-.453-1.66-.42-2.168-.026L13.793 12z"/>
-                <path fill="#FBBC05" d="M17.483 15.69L20.07 14.2c.738-.424.738-1.43 0-1.854l-2.587-1.484L13.793 12l3.69 3.69z"/>
-                <path fill="#EA4335" d="M3.61 22.186c.508.394 1.378.427 2.168-.026l11.705-6.47-3.69-3.69L3.61 22.186z"/>
-              </svg>
-              <div class="text-left leading-tight">
-                <span class="block text-[9px] font-medium uppercase tracking-wider text-neutral-300">GET IT ON</span>
-                <span class="block text-sm font-semibold text-white">Google Play</span>
-              </div>
-            </a>
-
-            <a
-              href="https://apps.apple.com/ph/search?term=Manananggal+2+Players"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="inline-flex items-center gap-2.5 bg-black hover:bg-neutral-800 active:scale-[0.98] text-white px-4 py-2.5 rounded-xl border border-neutral-700 shadow-sm transition min-w-[158px]"
-            >
-              <svg class="w-6 h-6 fill-current shrink-0 text-white" viewBox="0 0 24 24" aria-hidden="true">
-                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.96 6.32c.67-.81 1.12-1.94 1-3.07-.96.04-2.13.64-2.82 1.45-.61.7-.115 1.85-1.01 2.96 1.07.08 2.16-.53 2.83-1.34z"/>
-              </svg>
-              <div class="text-left leading-tight">
-                <span class="block text-[9px] font-medium tracking-wide text-neutral-300">Download on the</span>
-                <span class="block text-sm font-semibold text-white">App Store</span>
-              </div>
-            </a>
+        <!-- 3. Duterte Fighting Crime -->
+        <article class="game-card">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/CMhhDclbgfY" title="Duterte Fighting Crime Gameplay" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
           </div>
-        </div>
-      </article>
+          <div class="card-body">
+            <div>
+              <div class="game-title-row">
+                <h3>Duterte Fighting Crime</h3>
+                <span class="genre-tag">Arcade Shooter</span>
+              </div>
+              <p class="game-desc">Take on endless waves of street villains with heavy firepower and nonstop arcade action.</p>
+            </div>
+            <div class="store-buttons">
+              <a class="store-btn btn-android" href="https://play.google.com/store/apps/details?id=com.tataygames.dutertegame" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24"><path d="M3.61 1.814L13.793 12 3.61 22.186a1.98 1.98 0 0 1-.485-1.31V3.124c0-.51.187-.97.485-1.31zm10.89 10.893l2.828 2.828-11.55 6.625 8.722-9.453zm3.69-2.118l2.587 1.484c.738.423.738 1.43 0 1.854l-2.587 1.484-3.112-2.411 3.112-2.411zM5.778 1.84l11.55 6.625-2.828 2.828L5.778 1.84z"/></svg>
+                Google Play
+              </a>
+              <a class="store-btn btn-ios" href="https://apps.apple.com/nz/developer/tatay-games/id964822079" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.96 6.32c.67-.81 1.12-1.94 1-3.07-.96.04-2.13.64-2.82 1.45-.61.7-.115 1.85-1.01 2.96 1.07.08 2.16-.53 2.83-1.34z"/></svg>
+                App Store
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4. Manananggal - 2 Players -->
+        <article class="game-card">
+          <div class="video-wrap">
+            <iframe src="https://www.youtube.com/embed/pk8SSM2Pgig" title="Manananggal 2 Players Gameplay" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+          </div>
+          <div class="card-body">
+            <div>
+              <div class="game-title-row">
+                <h3>Manananggal - 2 Players</h3>
+                <span class="genre-tag">2-Player Folklore Action</span>
+              </div>
+              <p class="game-desc">Face off head-to-head in an intense two-player showdown inspired by Philippine folklore.</p>
+            </div>
+            <div class="store-buttons">
+              <a class="store-btn btn-android" href="https://play.google.com/store/apps/details?id=com.tatay.mananangalGame" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24"><path d="M3.61 1.814L13.793 12 3.61 22.186a1.98 1.98 0 0 1-.485-1.31V3.124c0-.51.187-.97.485-1.31zm10.89 10.893l2.828 2.828-11.55 6.625 8.722-9.453zm3.69-2.118l2.587 1.484c.738.423.738 1.43 0 1.854l-2.587 1.484-3.112-2.411 3.112-2.411zM5.778 1.84l11.55 6.625-2.828 2.828L5.778 1.84z"/></svg>
+                Google Play
+              </a>
+              <a class="store-btn btn-ios" href="https://apps.apple.com/us/app/manananggal-2-player/id1375271760" target="_blank" rel="noopener">
+                <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.96 6.32c.67-.81 1.12-1.94 1-3.07-.96.04-2.13.64-2.82 1.45-.61.7-.115 1.85-1.01 2.96 1.07.08 2.16-.53 2.83-1.34z"/></svg>
+                App Store
+              </a>
+            </div>
+          </div>
+        </article>
+
+      </div>
     </section>
+
   </main>
 
-  <!-- 4. FOOTER on #EAE9E7 -->
-  <footer class="w-full bg-studioBg border-t border-studioBorder">
-    <div class="w-full max-w-[960px] mx-auto px-5 sm:px-8 py-7 flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-studioMuted">
-      <span>&copy; 2026 Tatay Games</span>
-      <div class="flex items-center gap-6">
-        <a href="/privacypolicy" class="text-studioInk font-medium hover:underline">
-          Privacy Policy
-        </a>
-        <a href="mailto:eanjo7games@gmail.com" class="text-studioInk font-medium hover:underline">
-          Support
-        </a>
-      </div>
+  <footer>
+    <span>&copy; 2026 Tatay Games. All rights reserved.</span>
+    <div class="footer-links">
+      <a href="/privacypolicy">Privacy Policy</a>
+      <a href="mailto:eanjo7games@gmail.com">Support</a>
     </div>
   </footer>
 
-  <script>
-    /**
-     * Switches the hero logo image to the clean inline fallback graphic
-     * when tataygames.jpg is unavailable in the local preview sandbox.
-     * @param {HTMLImageElement} imgEl - Hero logo image element
-     */
-    function handleHeroLogoError(imgEl) {
-      try {
-        imgEl.classList.add('hidden');
-        const fallback = document.getElementById('hero-logo-fallback');
-        if (fallback) {
-          fallback.classList.remove('hidden');
-          fallback.classList.add('flex');
-        }
-      } catch (err) {
-        console.error('Hero logo fallback error:', err);
-      }
-    }
-
-    /**
-     * Switches the highlight banner image to the clean inline fallback card
-     * when highlight.jpg has not been uploaded yet.
-     * @param {HTMLImageElement} imgEl - Highlight banner image element
-     */
-    function handleHighlightBannerError(imgEl) {
-      try {
-        imgEl.classList.add('hidden');
-        const fallback = document.getElementById('highlight-banner-fallback');
-        if (fallback) {
-          fallback.classList.remove('hidden');
-          fallback.classList.add('flex');
-        }
-      } catch (err) {
-        console.error('Highlight banner fallback error:', err);
-      }
-    }
-  </script>
 </body>
 </html>
