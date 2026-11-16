@@ -1,3 +1,8 @@
+<style>
+body { background-color: #EAE9E7; }
+.markdown-body > h1:first-child { display: none; }
+</style>
+
 # PRIVACY POLICY
 
 **Last Updated: September 22, 2026**
