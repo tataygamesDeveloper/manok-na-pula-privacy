@@ -544,96 +544,59 @@
 
   <script>
     (function () {
-      const banner = document.getElementById('highlight-banner');
       const track = document.getElementById('slides-track');
       const dotsContainer = document.getElementById('slide-dots');
-      const originalSlides = Array.from(track.querySelectorAll('.highlight-slide'));
+      const slides = Array.from(track.querySelectorAll('.highlight-slide'));
       let current = 0;
-      let timer = null;
 
-      // Remove any image that hasn't been uploaded yet
-      originalSlides.forEach((img) => {
-        img.addEventListener('error', () => {
-          img.remove();
-          initSlideshow();
-        });
-      });
+      // Clone first slide at the end for a seamless right-to-left loop
+      const firstClone = slides[0].cloneNode(true);
+      track.appendChild(firstClone);
 
       function updateDots(activeIndex) {
         const dots = Array.from(dotsContainer.querySelectorAll('.slide-dot'));
         dots.forEach((d, i) => d.classList.toggle('active', i === activeIndex));
       }
 
-      function initSlideshow() {
-        clearInterval(timer);
-
-        // Remove any previous clone before rebuilding
-        const oldClone = track.querySelector('.slide-clone');
-        if (oldClone) oldClone.remove();
-
-        const slides = Array.from(track.querySelectorAll('.highlight-slide'));
-
-        if (slides.length === 0) {
-          banner.style.display = 'none';
-          return;
-        }
-
-        current = 0;
-        track.style.transition = 'none';
-        track.style.transform = 'translateX(0%)';
-        dotsContainer.innerHTML = '';
-
-        if (slides.length > 1) {
-          // Clone first slide at the end so the loop keeps sliding right-to-left seamlessly
-          const firstClone = slides[0].cloneNode(true);
-          firstClone.classList.add('slide-clone');
-          track.appendChild(firstClone);
-
-          dotsContainer.style.display = 'flex';
-          slides.forEach((_, i) => {
-            const dot = document.createElement('button');
-            dot.type = 'button';
-            dot.className = 'slide-dot' + (i === 0 ? ' active' : '');
-            dot.setAttribute('aria-label', 'Highlight ' + (i + 1));
-            dot.addEventListener('click', () => {
-              current = i;
-              track.style.transition = 'transform 0.65s cubic-bezier(0.25, 0.8, 0.25, 1)';
-              track.style.transform = 'translateX(-' + (current * 100) + '%)';
-              updateDots(current);
-              restartTimer();
-            });
-            dotsContainer.appendChild(dot);
-          });
-
-          function nextSlide() {
-            current++;
-            track.style.transition = 'transform 0.65s cubic-bezier(0.25, 0.8, 0.25, 1)';
-            track.style.transform = 'translateX(-' + (current * 100) + '%)';
-            updateDots(current % slides.length);
-
-            if (current === slides.length) {
-              setTimeout(() => {
-                track.style.transition = 'none';
-                current = 0;
-                track.style.transform = 'translateX(0%)';
-              }, 660);
-            }
-          }
-
-          function restartTimer() {
-            clearInterval(timer);
-            timer = setInterval(nextSlide, 3300);
-          }
-
+      slides.forEach((_, i) => {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.className = 'slide-dot' + (i === 0 ? ' active' : '');
+        dot.setAttribute('aria-label', 'Highlight ' + (i + 1));
+        dot.addEventListener('click', () => {
+          current = i;
+          track.style.transition = 'transform 0.65s cubic-bezier(0.25, 0.8, 0.25, 1)';
+          track.style.transform = 'translateX(-' + (current * 100) + '%)';
+          updateDots(current);
           restartTimer();
-        } else {
-          dotsContainer.style.display = 'none';
+        });
+        dotsContainer.appendChild(dot);
+      });
+
+      function nextSlide() {
+        current++;
+        track.style.transition = 'transform 0.65s cubic-bezier(0.25, 0.8, 0.25, 1)';
+        track.style.transform = 'translateX(-' + (current * 100) + '%)';
+        updateDots(current % slides.length);
+
+        if (current === slides.length) {
+          setTimeout(() => {
+            track.style.transition = 'none';
+            current = 0;
+            track.style.transform = 'translateX(0%)';
+          }, 660);
         }
       }
 
-      initSlideshow();
+      let timer = setInterval(nextSlide, 3300);
+
+      function restartTimer() {
+        clearInterval(timer);
+        timer = setInterval(nextSlide, 3300);
+      }
     })();
   </script>
+
 
 </body>
 </html>
