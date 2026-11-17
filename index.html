@@ -121,7 +121,7 @@
       text-align: center;
     }
 
-    /* Updatable Highlight Banner Section */
+    /* Updatable Highlight Slideshow Section */
     .highlight-section {
       margin-bottom: 56px;
     }
@@ -151,6 +151,7 @@
     }
 
     .highlight-frame {
+      position: relative;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 22px;
@@ -158,11 +159,50 @@
       box-shadow: 0 12px 28px rgba(28, 25, 23, 0.06);
     }
 
-    .highlight-frame img {
+    .highlight-slide {
       width: 100%;
       max-height: 460px;
       object-fit: cover;
+      display: none;
+      animation: slideFade 0.45s ease;
+    }
+
+    .highlight-slide.active {
       display: block;
+    }
+
+    @keyframes slideFade {
+      from { opacity: 0.35; }
+      to { opacity: 1; }
+    }
+
+    .slide-dots {
+      position: absolute;
+      bottom: 14px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      background: rgba(15, 15, 15, 0.45);
+      padding: 6px 12px;
+      border-radius: 999px;
+      backdrop-filter: blur(4px);
+    }
+
+    .slide-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      border: 0;
+      background: rgba(255, 255, 255, 0.45);
+      cursor: pointer;
+      padding: 0;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .slide-dot.active {
+      background: #FFFFFF;
+      transform: scale(1.2);
     }
 
     /* Games Showcase Grid */
@@ -338,7 +378,7 @@
     <img class="hero-logo" src="tataygames.jpg" alt="Tatay Games" />
 
     <div class="hero-badges">
-      <a class="badge-link" href="https://play.google.com/store/apps/dev?id=6790049393249803869" target="_blank" rel="noopener">
+      <a class="badge-link" href="https://play.google.com/store/apps/details?id=com.tatay.manokNaPula" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24"><path d="M3.61 1.814L13.793 12 3.61 22.186a1.98 1.98 0 0 1-.485-1.31V3.124c0-.51.187-.97.485-1.31zm10.89 10.893l2.828 2.828-11.55 6.625 8.722-9.453zm3.69-2.118l2.587 1.484c.738.423.738 1.43 0 1.854l-2.587 1.484-3.112-2.411 3.112-2.411zM5.778 1.84l11.55 6.625-2.828 2.828L5.778 1.84z"/></svg>
         <div class="badge-text">
           <span class="badge-small">Get it on</span>
@@ -363,14 +403,17 @@
       <!-- PASTE YOUR GOOGLE ADSENSE RECTANGLE AD UNIT CODE HERE -->
     </div>
 
-    <!-- Updatable Highlight Image Banner (Upload/Replace highlight.jpg on GitHub Anytime) -->
+    <!-- Updatable 3-Image Highlight Slideshow (Upload highlight.jpg, highlight2.jpg, highlight3.jpg on GitHub) -->
     <section class="highlight-section" id="highlight-banner">
       <div class="section-header">
         <h2>Featured Highlight</h2>
         <span class="pill">What's New</span>
       </div>
-      <div class="highlight-frame">
-        <img src="highlight.jpg" alt="Tatay Games Featured Highlight" onerror="document.getElementById('highlight-banner').style.display='none'" />
+      <div class="highlight-frame" id="highlight-frame">
+        <img class="highlight-slide active" src="highlight.jpg" alt="Tatay Games Featured Highlight 1" />
+        <img class="highlight-slide" src="highlight2.jpg" alt="Tatay Games Featured Highlight 2" />
+        <img class="highlight-slide" src="highlight3.jpg" alt="Tatay Games Featured Highlight 3" />
+        <div class="slide-dots" id="slide-dots"></div>
       </div>
     </section>
 
@@ -499,6 +542,67 @@
       <a href="mailto:eanjo7games@gmail.com">Support</a>
     </div>
   </footer>
+
+  <script>
+    (function () {
+      const banner = document.getElementById('highlight-banner');
+      const dotsContainer = document.getElementById('slide-dots');
+      const allSlides = Array.from(document.querySelectorAll('.highlight-slide'));
+      let current = 0;
+      let timer = null;
+
+      // Remove any slide whose image file hasn't been uploaded yet
+      allSlides.forEach((img) => {
+        img.addEventListener('error', () => {
+          img.remove();
+          initSlideshow();
+        });
+      });
+
+      function showSlide(index) {
+        const slides = Array.from(document.querySelectorAll('.highlight-slide'));
+        const dots = Array.from(dotsContainer.querySelectorAll('.slide-dot'));
+        if (!slides.length) return;
+        current = (index + slides.length) % slides.length;
+        slides.forEach((s, i) => s.classList.toggle('active', i === current));
+        dots.forEach((d, i) => d.classList.toggle('active', i === current));
+      }
+
+      function initSlideshow() {
+        clearInterval(timer);
+        const slides = Array.from(document.querySelectorAll('.highlight-slide'));
+
+        if (slides.length === 0) {
+          banner.style.display = 'none';
+          return;
+        }
+
+        slides.forEach((s, i) => s.classList.toggle('active', i === 0));
+        dotsContainer.innerHTML = '';
+
+        if (slides.length > 1) {
+          dotsContainer.style.display = 'flex';
+          slides.forEach((_, i) => {
+            const dot = document.createElement('button');
+            dot.type = 'button';
+            dot.className = 'slide-dot' + (i === 0 ? ' active' : '');
+            dot.setAttribute('aria-label', 'Highlight ' + (i + 1));
+            dot.addEventListener('click', () => {
+              showSlide(i);
+              clearInterval(timer);
+              timer = setInterval(() => showSlide(current + 1), 2500);
+            });
+            dotsContainer.appendChild(dot);
+          });
+          timer = setInterval(() => showSlide(current + 1), 2500);
+        } else {
+          dotsContainer.style.display = 'none';
+        }
+      }
+
+      initSlideshow();
+    })();
+  </script>
 
 </body>
 </html>
