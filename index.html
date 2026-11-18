@@ -400,7 +400,7 @@
       <!-- PASTE YOUR GOOGLE ADSENSE RECTANGLE AD UNIT CODE HERE -->
     </div>
 
-    <!-- Updatable 3-Image Highlight Slideshow (Moves Right-to-Left Every 3.3s) -->
+    <!-- Updatable 3-Image Highlight Slideshow (Automatically supports .jpg or .png) -->
     <section class="highlight-section" id="highlight-banner">
       <div class="section-header">
         <h2>Featured Highlight</h2>
@@ -408,9 +408,9 @@
       </div>
       <div class="highlight-frame" id="highlight-frame">
         <div class="slides-track" id="slides-track">
-          <img class="highlight-slide" src="highlight.jpg" alt="Tatay Games Featured Highlight 1" />
-          <img class="highlight-slide" src="highlight2.jpg" alt="Tatay Games Featured Highlight 2" />
-          <img class="highlight-slide" src="highlight3.jpg" alt="Tatay Games Featured Highlight 3" />
+          <img class="highlight-slide" src="highlight.jpg" alt="Tatay Games Featured Highlight 1" onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='highlight.png';}" />
+          <img class="highlight-slide" src="highlight2.jpg" alt="Tatay Games Featured Highlight 2" onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='highlight2.png';}" />
+          <img class="highlight-slide" src="highlight3.jpg" alt="Tatay Games Featured Highlight 3" onerror="if(!this.dataset.tried){this.dataset.tried='1';this.src='highlight3.png';}" />
         </div>
         <div class="slide-dots" id="slide-dots"></div>
       </div>
@@ -553,6 +553,14 @@
       const firstClone = slides[0].cloneNode(true);
       track.appendChild(firstClone);
 
+      // Keep the cloned slide in sync if Slide 1 falls back from .jpg to .png
+      slides[0].addEventListener('load', () => {
+        firstClone.src = slides[0].currentSrc || slides[0].src;
+      });
+      if (slides[0].complete && slides[0].naturalWidth > 0) {
+        firstClone.src = slides[0].currentSrc || slides[0].src;
+      }
+
       function updateDots(activeIndex) {
         const dots = Array.from(dotsContainer.querySelectorAll('.slide-dot'));
         dots.forEach((d, i) => d.classList.toggle('active', i === activeIndex));
@@ -596,7 +604,6 @@
       }
     })();
   </script>
-
 
 </body>
 </html>
